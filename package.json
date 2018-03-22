@@ -1,0 +1,25 @@
+{
+  "name": "amazon-scraper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "async": "^2.6.0",
+    "chalk": "^2.3.2",
+    "cheerio": "^1.0.0-rc.2",
+    "csv": "^2.0.0",
+    "fast-csv": "^2.4.1",
+    "google-spreadsheet": "^2.0.4",
+    "mailgun-js": "^0.16.0",
+    "node-cron": "^1.2.1",
+    "request": "^2.83.0",
+    "tor-request": "^1.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node scripts/crawler.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rafsan Rox",
+  "license": "ISC"
+}
