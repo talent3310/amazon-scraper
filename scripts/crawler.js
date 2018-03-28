@@ -4,7 +4,7 @@ var async = require('async');
 var chalk = require('chalk');
 var fs = require('fs'); 
 var csv = require('fast-csv'); 
-var phaseFrq = require('./wordFrequency.js');
+var phasesFrq = require('./wordFrequency.js');
 
 console.log('Starting....');
 // service.proxy_test(); return;
@@ -116,29 +116,30 @@ var res = {
 	reviews: []
 };
 
-// service.make_request(service.product_list_url(keyword), function(body) {
-// 	var $ = cheerio.load(body);
-// 	var asinArr = [];
-// 	$("li.s-result-item.celwidget").each(function(i, link) {
-// 		// console.log(i + '-' + link.attribs["data-asin"]);
-// 		if(asinArr.length < 16) { // limit number: 16
-// 			asinArr.push(link.attribs["data-asin"]);
-// 		}
-// 	});
+service.make_request(service.product_list_url(keyword), function(body) {
+	var $ = cheerio.load(body);
+	var asinArr = [];
+	$("li.s-result-item.celwidget").each(function(i, link) {
+		// console.log(i + '-' + link.attribs["data-asin"]);
+		if(asinArr.length < 16) { // limit number: 16
+			asinArr.push(link.attribs["data-asin"]);
+		}
+	});
 
-// 	async.eachSeries (asinArr, function(asin, callback) {
-// 		console.log(chalk.green('ASIN-  ') + asin);
-// 		getProductReviewsByAsin(asin, function(obj) {
-// 			res.reviews = res.reviews.concat(obj.allReviews);
-// 			res.averageRate += Number(obj.avgRate);
-// 			callback(null, obj);
-// 		});
-// 	}, function(err){
+	async.eachSeries (asinArr, function(asin, callback) {
+		console.log(chalk.green('ASIN-  ') + asin);
+		getProductReviewsByAsin(asin, function(obj) {
+			res.reviews = res.reviews.concat(obj.allReviews);
+			res.averageRate += Number(obj.avgRate);
+			callback(null, obj);
+		});
+	}, function(err){
 
-// 		console.log('result===> ', res);
-// 		console.log('ONE-KEYWORD operation is finished');
-// 	});
-// });
+		console.log('result===> ', res);
+		console.log('ONE-KEYWORD operation is finished');
+	});
+});
+
 var text = "test atest btest and test test test"; 
-var res = phaseFrq.calcFrequency(text, 2, 3, []);
+var res = phasesFrq.calcFrequency(text, 2, 3, []);
 console.log("res: ", res);
