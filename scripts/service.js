@@ -3,8 +3,12 @@ var request = require('request');
 
 var get_proxy = function () { 
   var proxy_ip = settings.proxies[Math.floor(Math.random() * settings.proxies.length)];
+  var instant_proxy_ip = settings.instantProxies[Math.floor(Math.random() * settings.instantProxies.length)];
   var proxy_url = "http://" + settings.proxy_user + ":" + settings.proxy_pass + "@" + proxy_ip + ":" + settings.proxy_port;
+  // var proxy_url = "http://" + instant_proxy_ip;
+  // console.log("proxy_url:", proxy_url);
   return proxy_url;
+  
 };
 
 var make_request = function (url, callback, return_soup=true) { 
@@ -19,7 +23,7 @@ var make_request = function (url, callback, return_soup=true) {
 		proxiedRequest.get(options, function(error, response, body) {
 			if(error) {
 				console.log('ERROR: proxy not working-' + error);
-				return;
+				return make_request(url,callback);;
 			}
 			if(!response && response.statusCode != 200) {
 				console.log('WARNING: Got a ' + response.statusCode +' status code for URL:' + url);
